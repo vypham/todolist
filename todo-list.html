@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+  <title>ToDo-Challenge</title>
+  <link rel="stylesheet" type="text/css" href="to-do-styles.css" />
+  <script src="jquery-2.1.4.min.js"></script>
+  <body>
+    <div class="lined-bg">
+      <div class="to-do-list-container">
+        <hr>
+          <span>
+            <input type="text" id="to-do-item" name="todo" onclick='javascript: this.value = ""' placeholder="Type in yo stuff here">
+            <input type="button" name="add-button" id="addItem" value="+" z-index="1">
+          </span>
+          <ul id="to-do-list"></ul>
+      </div>
+    </div>
+
+
+  </body>
+  <script>
+    $(document).ready(function() {
+
+    });
+
+    $(document).keypress(function(enter) {
+      var itemID = 0;
+      var createItem = $("#to-do-item").val();  /* grab item and put it into this variable*/
+
+      if(enter.which == 15 && createItem != "" && createItem != null) {
+        $("#to-do-list").append("<li><input id='checkbox" +itemID + "' type='checkbox'><label for='checkbox"+ itemID +"'>" + createItem + "</label> <a href='' onclick='removeMe()'>[remove]</a></li>");
+          itemID++;
+          $("#to-do-list").val(""); /*reset the value back to nothing */
+          $("#to-do-list").focus();
+      }
+    });
+
+    $("#addItem").click(function(){
+      var itemID = 0;
+      var createItem = $("#to-do-item").val();
+      $("#to-do-list").append("<li><input id='checkbox" +itemID + "' type='checkbox'><label for='checkbox"+ itemID +"'>" + createItem + "</label> <a href='' onclick='removeMe(itemID)'>[remove]</a></li>");
+        itemID++;
+        $("#to-do-list").focus();
+    });
+
+    function removeMe(id) {
+      var targetedItem = "#checkbox" + id;
+      alert("touched the item at hand");
+      /*$("#to-do-list").remove(targetedItem); */
+    }
+    /*$('#to-do-item').editable();*/
+  </script>
+
+</html>
