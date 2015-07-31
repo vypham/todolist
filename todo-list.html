@@ -5,9 +5,10 @@
   <body>
     <div class="lined-bg">
       <div class="to-do-list-container">
+        <h2>To Do</h2>
         <hr>
           <span>
-            <input type="text" id="to-do-item" name="todo" onclick='javascript: this.value = ""' placeholder="Type in yo stuff here">
+            <input type="text" id="to-do-item" name="todo" onclick='javascript: this.value = ""' placeholder="  What You Need To Do">
             <input type="button" name="add-button" id="addItem" value="+" z-index="1">
           </span>
           <ul id="to-do-list"></ul>
@@ -21,30 +22,27 @@
 
     });
 
-    $(document).keypress(function(enter) {
-      var itemID = 0;
+    $(document).keypress(function(e) {
       var createItem = $("#to-do-item").val();  /* grab item and put it into this variable*/
 
-      if(enter.which == 15 && createItem != "" && createItem != null) {
+      if(e.which == 13 && createItem != "" && createItem != null) {
         $("#to-do-list").append("<li><input id='checkbox" +itemID + "' type='checkbox'><label for='checkbox"+ itemID +"'>" + createItem + "</label> <a href='' onclick='removeMe()'>[remove]</a></li>");
           itemID++;
           $("#to-do-list").val(""); /*reset the value back to nothing */
           $("#to-do-list").focus();
       }
     });
+    var itemID = 0;
+    $("#addItem").click(function(event){
 
-    $("#addItem").click(function(){
-      var itemID = 0;
       var createItem = $("#to-do-item").val();
-      $("#to-do-list").append("<li><input id='checkbox" +itemID + "' type='checkbox'><label for='checkbox"+ itemID +"'>" + createItem + "</label> <a href='' onclick='removeMe(itemID)'>[remove]</a></li>");
+      $("#to-do-list").append("<li id='checkbox" +itemID + "' onclick='removeMe(" + itemID+ ")'><input type='checkbox'><label for='checkbox"+ itemID +"'>" + createItem + "</label> <button>[remove]</button></li>");
         itemID++;
         $("#to-do-list").focus();
     });
 
     function removeMe(id) {
-      var targetedItem = "#checkbox" + id;
-      alert("touched the item at hand");
-      /*$("#to-do-list").remove(targetedItem); */
+      $("#to-do-list #checkbox" + id).remove();
     }
     /*$('#to-do-item').editable();*/
   </script>
