@@ -21,8 +21,9 @@ hr {
 span {
   background: #ecf0f1;
   display: block;
-  width: 330px;
-  height: 40px;
+  width: 363px;
+  height: 46px;
+  margin-left: -32px;
 }
 
 #to-do-item {
@@ -32,6 +33,7 @@ span {
   width: 270px;
   font-size: 14px;
   background: #ecf0f1;
+  margin-left: 35px;
 }
 
 #addItem {
@@ -114,6 +116,8 @@ ul {
   line height: 10px;
 }
 
-.to-do-list-container a {
+.to-do-list-container button {
   float: right;
+  padding: 5px;
+  margin:5px 0 0 7px;
 }

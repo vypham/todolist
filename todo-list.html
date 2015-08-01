@@ -8,8 +8,8 @@
         <h2>To Do</h2>
         <hr>
           <span>
-            <input type="text" id="to-do-item" name="todo" onclick='javascript: this.value = ""' placeholder="  What You Need To Do">
-            <input type="button" name="add-button" id="addItem" value="+" z-index="1">
+            <input type="text" id="to-do-item" name="todo" placeholder="  What You Need To Do">
+            <input type="button" name="add-button" id="addItem" value="+">
           </span>
           <ul id="to-do-list"></ul>
       </div>
@@ -18,33 +18,45 @@
 
   </body>
   <script>
-    $(document).ready(function() {
+    var itemID = 0;
+    var todoItem = $("#to-do-item");
 
-    });
+    function createItem() {
+      $("#to-do-list").append("<li id=checkbox" +itemID + "><input type='checkbox'><label for='checkbox"+ itemID +"' id='label" + itemID + "'>" + todoItem.val() + "</label><button onclick='removeItem(" + itemID+ ")'>delete</button><button onclick='editItem(" + itemID + ")'>edit</button></li>");
+        itemID++;
+        $("#to-do-item").val(""); /* clear input box */
+        $("#to-do-item").focus();
+    }
 
     $(document).keypress(function(e) {
-      var createItem = $("#to-do-item").val();  /* grab item and put it into this variable*/
-
-      if(e.which == 13 && createItem != "" && createItem != null) {
-        $("#to-do-list").append("<li><input id='checkbox" +itemID + "' type='checkbox'><label for='checkbox"+ itemID +"'>" + createItem + "</label> <a href='' onclick='removeMe()'>[remove]</a></li>");
-          itemID++;
-          $("#to-do-list").val(""); /*reset the value back to nothing */
-          $("#to-do-list").focus();
+      if(e.which == 13 && todoItem.val() != "" && todoItem.val() != null) {
+        createItem();
       }
     });
-    var itemID = 0;
-    $("#addItem").click(function(event){
 
-      var createItem = $("#to-do-item").val();
-      $("#to-do-list").append("<li id='checkbox" +itemID + "' onclick='removeMe(" + itemID+ ")'><input type='checkbox'><label for='checkbox"+ itemID +"'>" + createItem + "</label> <button>[remove]</button></li>");
-        itemID++;
-        $("#to-do-list").focus();
+    $("#addItem").click(function(event) {
+      if(todoItem.val() != "" && todoItem.val() != null) {
+        createItem();
+      }
     });
 
-    function removeMe(id) {
-      $("#to-do-list #checkbox" + id).remove();
+    function removeItem(id) {
+      $("#checkbox"+id).remove();
     }
-    /*$('#to-do-item').editable();*/
+
+    function editItem(id) {
+      //grab the value of the input box
+      //populate that input box with its current stuff
+      //after enter or edit button, change the value to the new value
+      var listValue = $("#label"+id).text();
+      $("#checkbox"+id).replaceWith("<li id=checkbox" +id + "><input type='text' id='text" + id + "' value='" + listValue + "'><input type='button' value='save' onclick='updateItem(" + id + ")'></li>");
+    }
+
+    function updateItem(id) {
+      var listValue = $("#text"+id).val();
+      $("#checkbox"+id).replaceWith("<li id=checkbox" +id + "><input type='checkbox'><label for='checkbox"+ id +"' id='label" + id + "'>" + listValue + "</label><button onclick='removeItem(" + id + ")'>delete</button><button onclick='editItem(" + id + ")'>edit</button></li>");
+    }
+
   </script>
 
 </html>
